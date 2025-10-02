@@ -1,0 +1,97 @@
+{
+  "info": {
+    "_postman_id": "4b9a6f2a-9a7b-4f3b-8b2f-6d1c6b2e5f1a",
+    "name": "Finance Tracker - Parser",
+    "description": "Postman collection for testing the /api/parse/hdfc-credit-card endpoint (debug=true).\nNotes: When importing, set the file in the file form-data field or update the {{testFilePath}} variable.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Upload HDFC Credit Card Statement (debug)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "",
+              "pm.test(\"Has success flag\", function () {",
+              "    var j = pm.response.json();",
+              "    pm.expect(j).to.have.property('success');",
+              "});",
+              "",
+              "pm.test(\"If debug=true then rawText exists and is non-empty\", function () {",
+              "    var j = pm.response.json();",
+              "    if (j && j.rawText !== undefined) {",
+              "        pm.expect(j.rawText).to.be.a('string');",
+              "        pm.expect(j.rawText.length).to.be.above(0);",
+              "    } else {",
+              "        // Not a debug response; ensure rows array exists",
+              "        pm.expect(j).to.have.property('rows');",
+              "        pm.expect(j.rows).to.be.an('array');",
+              "    }",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "{{testFilePath}}"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/parse/hdfc-credit-card?debug=true",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "parse",
+            "hdfc-credit-card"
+          ],
+          "query": [
+            {
+              "key": "debug",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "testFilePath",
+      "value": "hdfc-credit-card-statement.pdf",
+      "type": "string"
+    }
+  ]
+}

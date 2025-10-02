@@ -1,0 +1,18 @@
+// PDF and CSV parsing (Stage 1)
+dependencies {
+    implementation project(':finance-common')
+    implementation project(':finance-core')
+
+    // PDF parsing
+    implementation 'org.apache.pdfbox:pdfbox:2.0.29'
+
+    // CSV processing
+    implementation 'org.apache.commons:commons-csv:1.10.0'
+
+    // Spring framework (no Boot starter)
+    implementation 'org.springframework:spring-context'
+    implementation 'org.springframework:spring-core'
+
+    // Testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+}

@@ -1,0 +1,58 @@
+@startuml
+' Finance Tracker - high level module architecture
+title Finance Tracker - Module Interaction
+
+package "Modules" {
+  package "finance-web\n(Spring Boot)" as WEB {
+    [Controllers]
+    [Thymeleaf Templates]
+    [HTTP API]
+  }
+
+  package "finance-processor\n(Orchestration)" as PROCESSOR {
+    [Job Orchestrator]
+    [Normalization Service]
+  }
+
+  package "finance-parser\n(Parsing Engines)" as PARSER {
+    [PDF Parsers]
+    [CSV Parsers]
+    [Detection / Profiles]
+  }
+
+  package "finance-core\n(Domain & Persistence)" as CORE {
+    [Entities]
+    [Repositories]
+    [Services]
+  }
+
+  package "finance-common\n(Shared DTOs & Utils)" as COMMON {
+    [Models]
+    [Utilities]
+  }
+}
+
+database "H2 / SQLite" as DB
+
+WEB --> PROCESSOR : submit parse job / API
+PROCESSOR --> PARSER : select parser, feed file/stream
+PARSER --> COMMON : uses DTOs, utils
+PARSER --> CORE : produce domain objects
+PROCESSOR --> CORE : persist results via services/repositories
+WEB --> CORE : read domain (reports, health)
+CORE --> DB : JPA / JDBC
+
+note right of PARSER
+  Detection rules and
+  bank profiles drive
+  parsing behavior
+end note
+
+note left of WEB
+  Single executable Spring Boot
+  application (only module with
+  spring-boot plugin)
+end note
+
+skinparam packageStyle rect
+@enduml

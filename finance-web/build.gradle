@@ -1,0 +1,33 @@
+// Apply Spring Boot plugin ONLY to this module
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+
+// Main executable module
+dependencies {
+    // All other modules
+    implementation project(':finance-common')
+    implementation project(':finance-core')
+    implementation project(':finance-parser')
+    implementation project(':finance-processor')
+
+    // Spring Boot starters
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Web-specific dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+
+    // Development tools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // YAML parsing for parser profiles
+    implementation 'org.yaml:snakeyaml:2.0'
+}
+
+// Configuration for the executable JAR
+springBoot {
+    mainClass = 'app.personal.FinancialTrackerApplication'
+}

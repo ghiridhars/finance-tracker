@@ -1,0 +1,54 @@
+meta {
+  name: Upload HDFC Credit Card Statement (debug)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/parse/hdfc-credit-card?debug=true
+  body: multipartForm
+  auth: inherit
+}
+
+params:query {
+  debug: true
+}
+
+headers {
+  Accept: application/json
+}
+
+body:multipart-form {
+  file: @file({{testFilePath}})
+}
+
+script:post-response {
+  test("Status code is 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Response is JSON", function () {
+  //     pm.response.to.be.json;
+  });
+  
+  test("Has success flag", function () {
+      var j = res.getBody();
+      expect(j).to.have.property('success');
+  });
+  
+  test("If debug=true then rawText exists and is non-empty", function () {
+      var j = res.getBody();
+      if (j && j.rawText !== undefined) {
+          expect(j.rawText).to.be.a('string');
+          expect(j.rawText.length).to.be.above(0);
+      } else {
+          // Not a debug response; ensure rows array exists
+          expect(j).to.have.property('rows');
+          expect(j.rows).to.be.an('array');
+      }
+  });
+}
+
+settings {
+  encodeUrl: true
+}

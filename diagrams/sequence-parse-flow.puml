@@ -1,0 +1,37 @@
+@startuml
+title Parse Job - Sequence Flow
+
+actor User
+participant Web as "finance-web (HTTP)"
+queue Queue as "Job Queue"
+participant Processor as "finance-processor"
+participant Parser as "finance-parser"
+participant Core as "finance-core"
+database DB as "H2 / SQLite"
+
+User -> Web : upload statement file
+Web -> Queue : enqueue(parseRequest)
+Web --> User : 202 Accepted
+
+Queue ..> Processor : deliver(parseRequest)
+activate Processor
+Processor -> Parser : parse(file)
+activate Parser
+Parser --> Processor : parsedTransactions
+deactivate Parser
+Processor -> Core : persist(parsedTransactions)
+activate Core
+Core -> DB : insert transactions
+Core --> Processor : persistAck
+deactivate Core
+Processor --> Queue : ack
+deactivate Processor
+Queue ..> Web : notify (optional)
+
+note over Parser
+  Detection rules and
+  bank profiles used here
+end note
+
+skinparam sequenceMessageAlign center
+@enduml

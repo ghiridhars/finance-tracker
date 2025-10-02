@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: financial-tracker
+
+  datasource:
+    url: jdbc:h2:file:./data/financial-tracker;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+  mvc:
+    static-path-pattern: /static/**
+
+server:
+  port: 8080

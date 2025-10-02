@@ -1,0 +1,15 @@
+// Stage 2 processing and categorization
+dependencies {
+    implementation project(':finance-common')
+    implementation project(':finance-core')
+    implementation project(':finance-parser')
+
+    // Spring framework
+    implementation 'org.springframework:spring-context'
+    implementation 'org.springframework:spring-tx'
+
+    // Apache Commons for utilities
+    implementation 'org.apache.commons:commons-lang3'
+    // CORRECT - With version
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+}

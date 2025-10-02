@@ -1,0 +1,46 @@
+// Define plugins for the entire project
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1' apply false
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+// Configuration applied to ALL subprojects
+allprojects {
+    group = 'app.personal'
+    version = '1.0.0'
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal() // IMPORTANT: Add this for plugin resolution
+    }
+}
+
+// Configuration applied to ALL subprojects except root
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    java {
+        sourceCompatibility = '17'
+        targetCompatibility = '17'
+    }
+
+    // Import Spring Boot BOM for version management
+    dependencyManagement {
+        imports {
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+    // Common dependencies for ALL modules
+    dependencies {
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}

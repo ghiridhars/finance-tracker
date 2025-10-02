@@ -1,0 +1,8 @@
+// Base utilities module - minimal dependencies
+dependencies {
+    // JSON processing
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    // Date/time utilities
+    implementation 'org.springframework:spring-context'
+}

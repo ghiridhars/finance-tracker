@@ -1,0 +1,42 @@
+@startuml
+title Finance Tracker - Async Component View
+
+left to right direction
+
+package "Presentation" {
+  [Web API\n(finance-web)] as WEB
+}
+
+package "Processing" {
+  [Orchestrator\n(finance-processor)] as PROCESSOR
+  queue "Job Queue" as QUEUE
+}
+
+package "Parsing" {
+  [Parser Engines\n(finance-parser)] as PARSER
+}
+
+package "Domain" {
+  [Core Services\n(finance-core)] as CORE
+}
+
+database "H2 / SQLite" as DB
+
+WEB --> QUEUE : enqueue parse job
+QUEUE ..> PROCESSOR : deliver job (async)
+PROCESSOR --> PARSER : select parser, feed file/stream
+PARSER --> CORE : return domain objects
+CORE --> DB : persist
+
+note left of QUEUE
+  Durable message queue
+  decouples upload from parsing
+end note
+
+skinparam packageStyle rect
+skinparam component {
+  BackgroundColor #F8F9FA
+  BorderColor #2F4F4F
+}
+
+@enduml

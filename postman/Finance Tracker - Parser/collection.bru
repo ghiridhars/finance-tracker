@@ -1,0 +1,17 @@
+meta {
+  name: Finance Tracker - Parser
+}
+
+auth {
+  mode: none
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+  testFilePath: hdfc-credit-card-statement.pdf
+}
+
+docs {
+  Postman collection for testing the /api/parse/hdfc-credit-card endpoint (debug=true).
+  Notes: When importing, set the file in the file form-data field or update the {{testFilePath}} variable.
+}
