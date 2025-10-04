@@ -30,8 +30,4 @@ public class ParseResult {
     public String getErrorMessage() {
         return errorMessage;
     }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
 }

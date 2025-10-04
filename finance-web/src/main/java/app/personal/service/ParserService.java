@@ -79,7 +79,12 @@ public class ParserService {
             CreditCardStatementDto statement = (CreditCardStatementDto) res.getResult();
 
             Map<String, Object> map = new HashMap<>();
-            map.put("success", res.isSuccess());
+            if (!res.isSuccess()) {
+                map.put("success", false);
+                map.put("error", res.getErrorMessage());
+            } else {
+                map.put("success", true);
+            }
             map.put("statement", statement);
             map.put("rawText", rawText);
             return map;

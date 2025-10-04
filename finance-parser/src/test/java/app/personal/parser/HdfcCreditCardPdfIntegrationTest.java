@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import app.personal.dto.CreditCardStatementDto;
+import app.personal.dto.CreditCardTransactionDto;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HdfcCreditCardPdfIntegrationTest {
@@ -21,15 +24,22 @@ public class HdfcCreditCardPdfIntegrationTest {
             fail("Parsing failed: " + res.getErrorMessage());
         }
 
-        System.out.println("Parsed rows: " + (res.getRows() == null ? 0 : res.getRows().size()));
-        if (res.getRows() != null) {
-            for (String[] row : res.getRows()) {
-                System.out.println(String.join(" | ", row));
+        CreditCardStatementDto statement = null;
+        if (res.getResult() instanceof CreditCardStatementDto) {
+            statement = (CreditCardStatementDto) res.getResult();
+        }
+
+        int txCount = (statement == null || statement.getTransactions() == null) ? 0 : statement.getTransactions().size();
+        System.out.println("Parsed transactions: " + txCount);
+        if (statement != null && statement.getTransactions() != null) {
+            for (CreditCardTransactionDto tx : statement.getTransactions()) {
+                System.out.println(tx.getDate() + " | " + tx.getDescription() + " | " + tx.getAmount() + " | " + tx.getType());
             }
         }
 
-        assertNotNull(res.getRows());
-        assertTrue(res.getRows().size() > 0, "Expected at least one parsed transaction");
+        assertNotNull(statement, "Expected a CreditCardStatementDto result");
+        assertNotNull(statement.getTransactions(), "Expected transactions list to be non-null");
+        assertTrue(statement.getTransactions().size() > 0, "Expected at least one parsed transaction");
     }
 
     private static File findPdfUpwards(String name, int maxLevels) {

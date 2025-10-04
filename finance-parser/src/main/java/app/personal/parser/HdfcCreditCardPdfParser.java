@@ -8,8 +8,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Enhanced HDFC credit card parser implementation.
@@ -158,6 +156,5 @@ public class HdfcCreditCardPdfParser extends PdfBoxStatementParser {
 
     private BigDecimal parseMoney(String amount) {
         return new BigDecimal(amount.replaceAll("[,\\s]", ""));
-    }
     }
 }

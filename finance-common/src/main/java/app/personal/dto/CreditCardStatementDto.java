@@ -1,6 +1,5 @@
 package app.personal.dto;
 
-import app.personal.model.TransactionType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package app.personal.controller;
 
 import app.personal.service.ParserService;
-import app.personal.service.ParsedTransactionDto;
+import app.personal.dto.CreditCardStatementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,10 +34,10 @@ public class ParseController {
                 return ResponseEntity.ok(debugMap);
             }
             // delegate to service which will also enforce size limits and deeper checks
-            List<ParsedTransactionDto> rows = parserService.parseHdfcCreditCard(file);
+            CreditCardStatementDto statement = parserService.parseHdfcCreditCard(file);
             Map<String, Object> body = new HashMap<>();
             body.put("success", true);
-            body.put("rows", rows);
+            body.put("statement", statement);
             return ResponseEntity.ok(body);
         } catch (IllegalArgumentException iae) {
             throw new ApiException(400, iae.getMessage());
