@@ -38,6 +38,12 @@ public class ParseController {
             Map<String, Object> body = new HashMap<>();
             body.put("success", true);
             body.put("statement", statement);
+            // Add rows field for backward compatibility
+            if (statement != null && statement.getTransactions() != null) {
+                body.put("rows", statement.getTransactions());
+            } else {
+                body.put("rows", new java.util.ArrayList<>());
+            }
             return ResponseEntity.ok(body);
         } catch (IllegalArgumentException iae) {
             throw new ApiException(400, iae.getMessage());
