@@ -10,7 +10,7 @@ This document tracks our development progress and plans. Following a modular, in
   - Domain models and DTOs implemented
   - More parsers planned
 
-***lopment plan**.
+**Development plan**.
 We’ll keep it **modular, incremental, test‑driven** so that each step can be tested before moving on.
 
 Here’s how I’d break it down:
