@@ -1,13 +1,15 @@
 # Finance Tracker
 
-A robust financial statement parser and analyzer that helps you track and analyze your banking transactions by processing bank statements (PDF/CSV) into a structured format.
+A modern financial statement management system with a React frontend and Spring Boot backend that helps you track and analyze your banking transactions by processing bank statements (PDF/CSV) into a structured format.
 
 ## Overview
 
-Finance Tracker is a Java-based application that:
+Finance Tracker is a full-stack application that:
 - Parses bank statements from various formats (PDF, CSV)
 - Normalizes transaction data into a standard format
 - Stores transactions in a structured database
+- Provides a modern web interface for data management
+- Exposes comprehensive REST APIs with OpenAPI documentation
 - Provides APIs for financial analysis and reporting
 
 ### Current Status (October 2025)

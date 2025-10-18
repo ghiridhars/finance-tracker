@@ -6,10 +6,18 @@
 - [🏗 Core Module](finance-core.md) - Business logic and data access
 - [📦 Common Module](finance-common.md) - Shared DTOs
 - [📐 Architecture Overview](../ARCHITECTURE.md) - System design and flow
+- [💻 Frontend Module](frontend.md) - React frontend implementation
 
 ## Overview
 
 The Web module provides the REST API interface for the Finance Tracker application, handling file uploads, parsing requests, and data retrieval. It acts as the primary interface between clients and the [two-stage processing architecture](../ARCHITECTURE.md#two-stage-processing-architecture).
+
+## API Documentation
+
+The module exposes a comprehensive OpenAPI specification at `/v3/api-docs` and interactive Swagger UI documentation at `/swagger-ui.html`. These endpoints provide:
+- Complete API reference with request/response schemas
+- Interactive API testing interface
+- OpenAPI 3.0 specification for code generation
 
 ## Recent Implementations
 

@@ -5,6 +5,7 @@
 - [🏗 Core Module](modules/finance-core.md) - Implementation details of Stage 2 processing
 - [📊 Database Schema](technical/database-schema.md) - Data storage details
 - [🌐 API Documentation](technical/api-documentation.md) - REST API for file processing
+- [💻 Frontend Module](modules/frontend.md) - Frontend implementation details
 
 ## System Overview
 
@@ -62,10 +63,17 @@ The Finance Tracker is built on a two-stage processing architecture that separat
 - Analytics engine
 
 ### Web Module
-- REST API
-- User interface
+- REST API with OpenAPI documentation
+- API endpoints for data access
 - Report generation
 - File management
+
+### Frontend Module
+- React + TypeScript SPA
+- Modern Vite development environment
+- React Query for API integration
+- Interactive data visualization
+- Real-time data updates
 
 ## Benefits
 
