@@ -1,25 +1,25 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import StatementUpload from './components/StatementUpload';
+import TransactionList from './components/TransactionList';
 
-function useHealth() {
-  return useQuery({
-    queryKey: ['health'],
-    queryFn: async () => {
-      const res = await axios.get('/health');
-      return res.data;
-    },
-  });
-}
-
-export default function App() {
-  const { data, isLoading, error } = useHealth();
+function App() {
   return (
-    <div style={{ padding: 32 }}>
-      <h1>Finance Tracker Frontend</h1>
-      <p>
-        Backend health: {isLoading ? 'Loading...' : error ? 'Error' : String(data)}
-      </p>
+    <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+      <header style={{ marginBottom: '30px', borderBottom: '1px solid #eee', paddingBottom: '20px' }}>
+        <h1 style={{ color: '#333' }}>Personal Finance Tracker</h1>
+      </header>
+
+      <main>
+        <section style={{ marginBottom: '40px' }}>
+          <StatementUpload />
+        </section>
+
+        <section>
+          <TransactionList />
+        </section>
+      </main>
     </div>
   );
 }
+
+export default App;

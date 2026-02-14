@@ -107,7 +107,7 @@ Stage 2 working with direct CSV upload → DB → visible in a sample dashboard 
 
 ### **In Progress:**
 1. **Additional Parser Support**
-    - HDFC Savings Account parser
+    - HDFC Savings Account parser ✓
     - Bank of Baroda parser implementation
     - Federal Bank parser implementation
 

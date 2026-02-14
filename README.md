@@ -142,7 +142,7 @@ test/resources/golden-files/
 
 **Phase 2: Single Parser (Week 2)**
 
-- [ ] HDFC Savings PDF parser (most common)
+- [x] HDFC Savings PDF parser (most common)
 - [ ] Date/amount normalization utilities
 - [ ] Basic transaction modeling
 - [ ] Golden file testing
